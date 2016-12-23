@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>{% block title %}SymfonyBlog by MB{% endblock %}</title>
+
+{% block stylesheets %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+<style type="text/css">
+body p {
+	text-align: justify;
+}
+</style>
+{% endblock %}
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{{ path('blog_home') }}">Symfony
+						blog</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="{{ path('blog_home') }}">Strona głowna</a></li>
+						<li><a href="{{ path('list_posts') }}">Wszystkie wpisy</a></li>
+						{% if is_granted('ROLE_ADMIN') %}
+						<li><a href="{{ path('new_post') }}">Nowy wpis</a></li>
+						<li><a href="{{ path('blog_crud') }}">Edytuj/Usun</a></li>
+						{% endif %}
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						{% if is_granted('ROLE_ADMIN') %}
+						<li><a href="{{ path('logout') }}"> </span> Wyloguj
+						</a></li>
+						{% else %}
+						<li><a href="{{ path('login') }}"> </span> Login
+						</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+
+		</nav>
+
+	</header>
+	<div class="container" style="padding-top: 80px">
+		<div class="row">
+			<div id="content" class="col-md-8 col-sm-12">
+				{% block body %}
+				{% endblock %}
+			</div>
+			<div class="col-md-4 col-sm-12">
+				{{ render(controller('AppBundle:Blog:recentlyCommented')) }}
+				<br>
+				{{ render(controller('AppBundle:Blog:mostCommented')) }}
+			</div>
+		</div>
+	</div>
+	{% block javascripts %}
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	{% endblock %}
+
+</body>
+</html>

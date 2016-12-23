@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+    {% if not posts %}
+    	<h4>Brak wpisów</h4>
+    {% endif %}
+    
+    {% for post in posts %}
+    <div>
+    	<h4>
+    		<a href="{{ path('show_post',{'id':post.id})}}"> {{ post.title }}</a>
+    	</h4>
+    </div>
+    <hr>
+    {% endfor %}
+
+{% endblock %}

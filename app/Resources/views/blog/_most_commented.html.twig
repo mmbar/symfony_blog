@@ -1,0 +1,7 @@
+{% if posts %}
+	<h5>Najczęściej komentowane:</h5>
+{% endif %}
+
+{% for post in posts %}
+	<a href="{{ path('show_post',{'id':post.id}) }} " > {{  post.title }}</a> <br><br>
+{% endfor %}

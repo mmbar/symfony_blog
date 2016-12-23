@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+ 	{{ include('admin/_post_form.html.twig') }}
+
+    <br>
+    <hr>
+    <h4>Komentarze:</h4>
+    <br>
+
+    {% for comment in post.comments %}
+        <div>
+        	<p>
+        		{{comment.author}}
+        		: <span class="small"> {{ comment.comment }}</span> <a
+        			class="btn btn-sm btn-default"
+        			href="{{path('del_comment',{'post_id':post.id,'comment_id':comment.id})}}">
+        			Usuń</a>
+        	</p>
+        	<hr>
+        </div>
+    {% endfor %}
+
+{% endblock %}

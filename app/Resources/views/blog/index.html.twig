@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	
+	{% if not posts %}
+		<h4>Brak wpisów</h4>
+    {% endif %}
+	
+    {% for post in posts %}
+        <h2>
+        	{{ post.title }} <span class="small pull-right">{{ post.created|date("Y-m-d") }}</span>
+        </h2>
+        <p>
+        	{{ post.post | slice(0,430) }}
+        	... <a href="{{ path('show_post',{'id':post.id})}}" class="pull-right">czytaj
+        		wiecej</a>
+        </p>
+        <br>
+        <br>
+    {% endfor %}
+	
+	
+		
+{% endblock %}
+
+
+
+
+
+
+

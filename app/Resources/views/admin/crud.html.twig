@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div id="delete_path" path="{{path('delete_path')}}"></div>
+	
+	{% if not posts %}
+	
+		<h4>Brak wpisów</h4>
+    
+	{% endif %}
+	
+    {% for post in posts %}
+            
+            <div>
+            	<h4>
+            		<a href="{{ path('show_post',{'id':post.id}) }}"> {{ post.title }}</a>
+            		
+            		<div class="btn-group pull-right">
+            			<a href="{{ path('edit_post',{'id':post.id}) }}"
+            				class="btn btn-info btn-sm">Edytuj</a>
+            			<button type="button" class="btn btn-info btn-sm confirm-delete"
+            				data-toggle="modal" data-target="#myModal" post_id="{{post.id}}">Usuń</button>
+            
+            		</div>
+            	</h4>
+            	
+            <span>{{ post.created|date("y-m-d") }}</span>
+            </div>
+            
+            <hr>
+    {% endfor %}
+        <div id="myModal" class="modal fade" role="dialog">
+        	<div class="modal-dialog">
+           		<!-- Modal content-->
+        		<div class="modal-content">
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">&times;</button>
+        				<h4 class="modal-title">Napewno chcesz usunąć?</h4>
+        			</div>
+        			<div class="modal-body">
+        				<a id="delete_post" href="" class="btn btn-primary pull-right">Usuń</a>        			
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+        			</div>
+        		</div>
+        
+        	</div>
+        </div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		$(function(){
+				$(".confirm-delete").click(function(){
+						$("#delete_post").attr("href",$("#delete_path").attr("path")+$(this).attr("post_id"));
+					});
+						
+			});
+	</script>
+	
+{% endblock %}

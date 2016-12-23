@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+    	<h3>
+    		{{ post.title }}
+    	</h3>
+    	<p>
+    		{{ post.post | raw }}
+    	</p>
+    	<h4 class="pull-right">
+    		{{ post.author }} <span class="small"> {{ post.created|date("y-m-d") }}</span>
+     	</h4>
+    	<br>
+    	<hr>
+    </div>
+    
+    <h4>Komentarze: <a href="#add_comment" class="pull-right">Komentuj</a></h4>
+    <br>
+    {% for comment in post.comments %}
+    <div>
+    	<p>
+    		<strong> {{comment.author}} :
+    		</strong> <span class="small"> {{ comment.comment }}</span>
+    	</p>
+    	<hr>
+    </div>
+    {% endfor %}
+    <br>
+    <h4 id="add_comment">Komentuj :</h4>
+    <div class="col-sm-6">
+    	{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    	<div class="form-group">
+    		{{ form_row(form.comment,{'label':'Tresc','attr':{'class':'form-control','rows':'5'}}) }}
+    	</div>
+    	<div class="form-group">
+    		{{ form_row(form.author,{'label':'Autor','attr':{'class':'form-control'}}) }}
+    	</div>
+    	<div class="form-group">
+    		{{ form_row(form.save,{'label':'Zapisz','attr':{'class':'btn btn-default'}}) }}
+    	</div>
+    	{{ form_end(form) }}
+    </div>
+{% endblock %}
